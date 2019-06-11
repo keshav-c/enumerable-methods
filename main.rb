@@ -23,9 +23,20 @@ module Enumerable
         true
     end
 
+    def my_any?
+        self.my_each {|item| return true if yield(item)}
+        false
+    end
+
+    def my_none?
+        self.my_each {|item| return false if yield(item)}
+        true
+    end
+
 end
 
 ar = ["hello", 42, "an array", :sym, true, :sym2, 3.14]
+ar2 = [1, 2, 3, 4, 5]
 
 # my_each test
 # ------------------
@@ -43,6 +54,21 @@ ar = ["hello", 42, "an array", :sym, true, :sym2, 3.14]
 
 # my_all? test
 # ------------------
-puts ar.my_all? {|item| item.is_a? String}
-ar2 = [1, 2, 3, 4, 5]
-puts ar2.my_all? {|item| item.is_a? Integer}
+all_strings = ar.my_all? {|item| item.is_a? String}
+puts "[#{ar.join(", ")}] are all strings? #{all_strings}"
+all_ints = ar2.my_all? {|item| item.is_a? Integer}
+puts "[#{ar2.join(", ")}] are all integers? #{all_ints}"
+
+# my_any? test
+# ------------------
+any_syms = ar.my_any? {|item| item.is_a? Symbol}
+puts "[#{ar.join(", ")}] has any symbols? #{any_syms}"
+any_arrays = ar.my_any? {|item| item.is_a? Array}
+puts "[#{ar.join(", ")}] has any arrays? #{any_arrays}"
+
+# my_none? test
+# ------------------
+no_strings = ar.my_none? {|item| item.is_a? String}
+puts "[#{ar.join(", ")}] has no strings? #{no_strings}"
+no_strings = ar2.my_none? {|item| item.is_a? String}
+puts "[#{ar2.join(", ")}] has no strings? #{no_strings}"
