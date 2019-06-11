@@ -57,7 +57,8 @@ module Enumerable
   end
 
   def my_count
-    return self.size unless block_given?    
+    return self.size unless block_given?
+    
     result = 0
     self.my_each { |item| result += 1 if yield(item) }
     result
