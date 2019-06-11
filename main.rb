@@ -104,6 +104,15 @@ ar2 = [1, 2, 3, 4, 5]
 
 # my_map test
 # ------------------
-ar2_squared = ar2.my_map {|i| i**2}
-puts "array: [#{ar2.join(", ")}]"
-puts "array squared: [#{ar2_squared.join(", ")}]"
+# ar2_squared = ar2.my_map {|i| i**2}
+# puts "array: [#{ar2.join(", ")}]"
+# puts "array squared: [#{ar2_squared.join(", ")}]"
+
+
+# my_inject test
+# ------------------
+def multiply_els(array)
+    array.my_inject {|prod, el| prod * el}
+end
+puts multiply_els([2,4,5])
+puts multiply_els([3,12,-2, 0])
