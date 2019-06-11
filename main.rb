@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-=begin
-This code "extends" the Enumerabl module with a bunch of my_ methods which are
-a reimplementation of the existing methods within the module
-=end
+# Extend the Enumerable module with a bunch of my_ methods 
 module Enumerable
   def my_each
     for idx in (0...self.size)
@@ -58,7 +55,7 @@ module Enumerable
 
   def my_count
     return self.size unless block_given?
-    
+
     result = 0
     self.my_each { |item| result += 1 if yield(item) }
     result
