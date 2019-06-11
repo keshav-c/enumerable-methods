@@ -41,9 +41,9 @@ module Enumerable
     result
   end
 
-  def my_map
+  def my_map(&proc)
     mapped = []
-    self.my_each { |item| mapped.push(yield(item)) }
+    self.my_each { |item| mapped.push(proc.call(item)) }
     mapped
   end
 
@@ -106,10 +106,17 @@ ar2 = [1, 2, 3, 4, 5]
 
 # my_map test
 # ------------------
-# ar2_squared = ar2.my_map {|i| i**2}
-# puts "array: [#{ar2.join(", ")}]"
-# puts "array squared: [#{ar2_squared.join(", ")}]"
+puts "array: [#{ar2.join(", ")}]"
 
+# Use Block
+ar2_squared = ar2.my_map { |i| i**2 }
+p ar2_squared
+
+
+# Use proc
+cube = Proc.new { |i| i**3 }
+ar2_cubed = ar2.my_map(&cube)
+p ar2_cubed
 
 # my_inject test
 # ------------------
