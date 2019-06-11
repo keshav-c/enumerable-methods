@@ -1,8 +1,8 @@
 # Enumerable Methods
 
-This project involves creating my own implementation of the `Enumerable` class methods from the Ruby core library. The following methods are implemented:
+This project involves creating my own implementation of the `Enumerable` module methods from the Ruby core library. The following methods are implemented:
 
-- `my_each`
+- `my_each`: Yields successive members of the collection.
 - `my_each_with_index`
 - `my_select`
 - `my_all`
