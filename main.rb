@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Extend the Enumerable module with a bunch of my_ methods
 module Enumerable
   def my_each
     for idx in (0...self.size)
@@ -22,38 +23,36 @@ module Enumerable
   def my_all?
     if !block_given?
       self.my_each { |item| return false unless item }
-      result = true
+      return true
     else
       self.my_each { |item| return false unless yield(item) }
-      result = true
+      return true
     end
-    result
   end
 
   def my_any?
     if !block_given?
       self.my_each { |item| return true if item }
-      result = false
+      return false
     else
       self.my_each { |item| return true if yield(item) }
-      result = false
+      return false
     end
-    result
   end
 
   def my_none?
     if !block_given?
       self.my_each { |item| return false if item }
-      result = true
+      return true
     else
       self.my_each { |item| return false if yield(item) }
-      result = true
+      return true
     end
-    result
   end
 
   def my_count
-    return self.size if !block_given?
+    return self.size unless block_given?
+
     result = 0
     self.my_each { |item| result += 1 if yield(item) }
     result
@@ -65,21 +64,24 @@ module Enumerable
     mapped
   end
 
-  def my_inject(init=nil)
+  def my_inject(init = nil)
     if init.nil?
-      result, to_process = self[0], self[1..-1]
+      result = self[0]
+      to_process = self[1..-1]
     else
-      result, to_process = init, self
+      result = init
+      to_process = self
     end
     to_process.my_each { |item| result = yield(result, item) }
     result
   end
-
 end
 
-ar = ["hello", 42, "an array", :sym, true, :sym2, 3.14]
-ar2 = [1, 2, 3, 4, 5]
-hsh = {"first" => 45, "2nd" => true, third: "a string"}
+# test data (uncomment before testing)
+# ------------------
+# ar = ['hello', 42, 'an array', :sym, true, :sym2, 3.14]
+# ar2 = [1, 2, 3, 4, 5]
+# hsh = { 'first' => 45, '2nd' => true, third: 'a string' }
 
 # my_each test
 # ------------------
@@ -93,7 +95,6 @@ hsh = {"first" => 45, "2nd" => true, third: "a string"}
 # ------------------
 # puts ar.my_select {|item| item.is_a? Numeric}.join(", ")
 # puts ar.my_select {|item| item.is_a? Symbol}.join(", ")
-
 
 # my_all? test
 # ------------------
@@ -148,7 +149,7 @@ hsh = {"first" => 45, "2nd" => true, third: "a string"}
 # my_inject test
 # ------------------
 def multiply_els(array)
-  array.my_inject {|prod, el| prod * el}
+  array.my_inject { |prod, el| prod * el }
 end
-puts multiply_els([2,4,5])
-puts multiply_els([3,12,-2, 5])
+puts multiply_els([2, 4, 5])
+puts multiply_els([3, 12, -2, 5])
