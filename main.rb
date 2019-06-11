@@ -16,6 +16,7 @@ module Enumerable
   end
 
   def my_each_with_index
+    return nil unless block_given?
     for idx in (0...self.size)
       yield(self[idx], idx)
     end
@@ -72,13 +73,14 @@ hsh = {"first" => 45, "2nd" => true, third: "a string"}
 
 # my_each test
 # ------------------
-ar.my_each { |item| puts "A #{item}" }
-# hsh.my_each { |k, v| puts "#{k} and #{v}"}
-p hsh.my_each.nil?
+# ar.my_each { |item| puts "A #{item}" }    # Array
+# hsh.my_each { |k, v| puts "#{k} and #{v}"}    # Hash
+# p hsh.my_each.nil?    # No block
 
 # my_each_with_index test
 # ------------------
-# ar.my_each_with_index {|item, i| puts "@#{i}: #{item}"}
+ar.my_each_with_index {|item, i| puts "@#{i}: #{item}"}
+p ar.my_each_with_index
 
 # my_select test
 # ------------------
