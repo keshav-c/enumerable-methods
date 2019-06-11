@@ -3,19 +3,12 @@
 module Enumerable
 
   def my_each
-    if self.is_a? Hash
-    for key in self.keys()
-      yield(key, self[key])
-    end
-    else
-      for idx in (0...self.size)
-        yield(self[idx])
-      end
+    for idx in (0...self.size)
+      yield(self[idx])
     end
   end
 
   def my_each_with_index
-    return nil unless block_given?
     for idx in (0...self.size)
       yield(self[idx], idx)
     end
@@ -28,6 +21,9 @@ module Enumerable
   end
 
   def my_all?
+    unless block_given?
+      self.my_each { |item| return false unless item }
+    end
     self.my_each { |item| return false unless yield(item) }
     true
   end
