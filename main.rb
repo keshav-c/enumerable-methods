@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Enumerable
-
   def my_each
     for idx in (0...self.size)
       yield(self[idx])
@@ -21,43 +20,43 @@ module Enumerable
   end
 
   def my_all?
-    unless block_given?
+    if !block_given?
       self.my_each { |item| return false unless item }
-      return true
+      result = true
     else
       self.my_each { |item| return false unless yield(item) }
-      return true
+      result = true
     end
+    result
   end
 
   def my_any?
-    unless block_given?
+    if !block_given?
       self.my_each { |item| return true if item }
-      return false
+      result = false
     else
       self.my_each { |item| return true if yield(item) }
-      return false
+      result = false
     end
+    result
   end
 
   def my_none?
-    unless block_given?
+    if !block_given?
       self.my_each { |item| return false if item }
-      return true
+      result = true
     else
       self.my_each { |item| return false if yield(item) }
-      return true
+      result = true
     end
+    result
   end
 
   def my_count
-    unless block_given?
-      return self.size
-    else
-      result = 0
-      self.my_each { |item| result += 1 if yield(item) }
-      return result
-    end
+    return self.size if !block_given?
+    result = 0
+    self.my_each { |item| result += 1 if yield(item) }
+    result
   end
 
   def my_map(&proc)
@@ -148,9 +147,8 @@ hsh = {"first" => 45, "2nd" => true, third: "a string"}
 
 # my_inject test
 # ------------------
-# def multiply_els(array)
-#   array.my_inject {|prod, el| prod * el}
-# end
-# puts multiply_els([2,4,5])
-# puts multiply_els([3,12,-2, 0])
-
+def multiply_els(array)
+  array.my_inject {|prod, el| prod * el}
+end
+puts multiply_els([2,4,5])
+puts multiply_els([3,12,-2, 5])
