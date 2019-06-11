@@ -146,6 +146,10 @@ end
 # puts "[#{ar.join(", ")}] has #{ar.my_count} elements"
 # ar = ['hello', 42, 'an array', 42, :sym, true, :sym2, 3.14, 42]
 # puts "[#{ar.join(", ")}] has #{ar.my_count(42)} 42s"
+ary = [1, 2, 4, 2]
+p ary.my_count                  #=> 4 (the array contains 4 elements)
+p ary.my_count(2)               #=> 2 (there are two elements equals to argument 2)
+p ary.my_count { |x| x%2 == 0 } #=> 3 (there are 3 even numbers in the array)
 
 # my_map test
 # ------------------
@@ -158,8 +162,8 @@ end
 
 # my_inject test
 # ------------------
-def multiply_els(array)
-  array.my_inject { |prod, el| prod * el }
-end
-puts multiply_els([2, 4, 5])
+# def multiply_els(array)
+#   array.my_inject { |prod, el| prod * el }
+# end
+# puts multiply_els([2, 4, 5])
 # puts multiply_els([3, 12, -2, 5])
