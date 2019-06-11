@@ -39,6 +39,12 @@ module Enumerable
         result
     end
 
+    def my_map
+        mapped = []
+        self.my_each { |item| mapped.push(yield(item))}
+        mapped
+    end
+
 end
 
 ar = ["hello", 42, "an array", :sym, true, :sym2, 3.14]
@@ -81,7 +87,13 @@ ar2 = [1, 2, 3, 4, 5]
 
 # my_count test
 # ------------------
-num_str = ar.my_count {|i| i.is_a? String}
-puts "[#{ar.join(", ")}] has #{num_str} strings"
-num_int = ar.my_count {|i| i.is_a? Integer}
-puts "[#{ar.join(", ")}] has #{num_int} integers"
+# num_str = ar.my_count {|i| i.is_a? String}
+# puts "[#{ar.join(", ")}] has #{num_str} strings"
+# num_int = ar.my_count {|i| i.is_a? Integer}
+# puts "[#{ar.join(", ")}] has #{num_int} integers"
+
+# my_map test
+# ------------------
+ar2_squared = ar2.my_map {|i| i**2}
+puts "array: [#{ar2.join(", ")}]"
+puts "array squared: [#{ar2_squared.join(", ")}]"
