@@ -45,6 +45,16 @@ module Enumerable
         mapped
     end
 
+    def my_inject(init=nil)
+        if init.nil?
+            result, to_process = self[0], self[1..-1]
+        else
+            result, to_process = init, self
+        end
+        to_process.my_each { |item| result = yield(result, item) }
+        result
+    end
+
 end
 
 ar = ["hello", 42, "an array", :sym, true, :sym2, 3.14]
