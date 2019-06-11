@@ -85,13 +85,10 @@ hsh = {"first" => 45, "2nd" => true, third: "a string"}
 # my_each test
 # ------------------
 # ar.my_each { |item| puts "A #{item}" }    # Array
-# hsh.my_each { |k, v| puts "#{k} and #{v}"}    # Hash
-# p hsh.my_each.nil?    # No block
 
 # my_each_with_index test
 # ------------------
 # ar.my_each_with_index {|item, i| puts "@#{i}: #{item}"}
-# p ar.my_each_with_index
 
 # my_select test
 # ------------------
@@ -105,6 +102,10 @@ hsh = {"first" => 45, "2nd" => true, third: "a string"}
 # puts "[#{ar.join(", ")}] are all strings? #{all_strings}"
 # all_ints = ar2.my_all? {|item| item.is_a? Integer}
 # puts "[#{ar2.join(", ")}] are all integers? #{all_ints}"
+# ar.push(nil)
+# puts "[#{ar.join(", ")}] are all truthy? #{ar.my_all?}"
+# ar.pop
+# puts "[#{ar2.join(", ")}] are all truthy? #{ar2.my_all?}"
 
 # my_any? test
 # ------------------
@@ -112,6 +113,10 @@ hsh = {"first" => 45, "2nd" => true, third: "a string"}
 # puts "[#{ar.join(", ")}] has any symbols? #{any_syms}"
 # any_arrays = ar.my_any? {|item| item.is_a? Array}
 # puts "[#{ar.join(", ")}] has any arrays? #{any_arrays}"
+# nil_array = Array.new(5, nil)
+# puts "[#{nil_array.join(", ")}] has any truthy? #{nil_array.my_any?}"
+# nil_array[2] = 23
+# puts "[#{nil_array.join(", ")}] has any truthy? #{nil_array.my_any?}"
 
 # my_none? test
 # ------------------
@@ -119,6 +124,10 @@ hsh = {"first" => 45, "2nd" => true, third: "a string"}
 # puts "[#{ar.join(", ")}] has no strings? #{no_strings}"
 # no_strings = ar2.my_none? {|item| item.is_a? String}
 # puts "[#{ar2.join(", ")}] has no strings? #{no_strings}"
+# nil_array = Array.new(5, nil)
+# puts "[#{nil_array.join(", ")}] has no truthy? #{nil_array.my_none?}"
+# nil_array[2] = 23
+# puts "[#{nil_array.join(", ")}] has no truthy? #{nil_array.my_none?}"
 
 # my_count test
 # ------------------
@@ -126,18 +135,14 @@ hsh = {"first" => 45, "2nd" => true, third: "a string"}
 # puts "[#{ar.join(", ")}] has #{num_str} strings"
 # num_int = ar.my_count {|i| i.is_a? Integer}
 # puts "[#{ar.join(", ")}] has #{num_int} integers"
+# puts "[#{ar.join(", ")}] has #{ar.my_count} elements"
 
 # my_map test
 # ------------------
 # puts "array: [#{ar2.join(", ")}]"
-
-# Use Block
-# ar2_squared = ar2.my_map { |i| i**2 }
+# ar2_squared = ar2.my_map { |i| i**2 }       # Use Block
 # p ar2_squared
-
-
-# Use proc
-# cube = Proc.new { |i| i**3 }
+# cube = Proc.new { |i| i**3 }        # Use proc
 # ar2_cubed = ar2.my_map(&cube)
 # p ar2_cubed
 
