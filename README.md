@@ -14,3 +14,14 @@ This project involves creating my own implementation of the `Enumerable` module 
 - Modify `my_map` so that it can also accept a proc.
 
 The new methods are added onto the existing Enumerable module.
+
+## Installation
+
+**Linux**: If Ruby is installed, simply run `ruby main.rb`. 
+
+Before running:
+
+- Uncomment lines 90-92, for sample input data into the various methods.
+- Each `my_` method has it's own test cases. These need to be uncommented as each method is tested
+
+Testing is done from the file itself, which seems inconvenient for now.
