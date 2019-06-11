@@ -19,18 +19,24 @@ module Enumerable
     end
 
     def my_all?
-        self.my_each {|item| return false unless yield(item)}
+        self.my_each { |item| return false unless yield(item) }
         true
     end
 
     def my_any?
-        self.my_each {|item| return true if yield(item)}
+        self.my_each { |item| return true if yield(item) }
         false
     end
 
     def my_none?
-        self.my_each {|item| return false if yield(item)}
+        self.my_each { |item| return false if yield(item) }
         true
+    end
+
+    def my_count
+        result = 0
+        self.my_each { |item| result += 1 if yield(item) }
+        result
     end
 
 end
@@ -54,21 +60,28 @@ ar2 = [1, 2, 3, 4, 5]
 
 # my_all? test
 # ------------------
-all_strings = ar.my_all? {|item| item.is_a? String}
-puts "[#{ar.join(", ")}] are all strings? #{all_strings}"
-all_ints = ar2.my_all? {|item| item.is_a? Integer}
-puts "[#{ar2.join(", ")}] are all integers? #{all_ints}"
+# all_strings = ar.my_all? {|item| item.is_a? String}
+# puts "[#{ar.join(", ")}] are all strings? #{all_strings}"
+# all_ints = ar2.my_all? {|item| item.is_a? Integer}
+# puts "[#{ar2.join(", ")}] are all integers? #{all_ints}"
 
 # my_any? test
 # ------------------
-any_syms = ar.my_any? {|item| item.is_a? Symbol}
-puts "[#{ar.join(", ")}] has any symbols? #{any_syms}"
-any_arrays = ar.my_any? {|item| item.is_a? Array}
-puts "[#{ar.join(", ")}] has any arrays? #{any_arrays}"
+# any_syms = ar.my_any? {|item| item.is_a? Symbol}
+# puts "[#{ar.join(", ")}] has any symbols? #{any_syms}"
+# any_arrays = ar.my_any? {|item| item.is_a? Array}
+# puts "[#{ar.join(", ")}] has any arrays? #{any_arrays}"
 
 # my_none? test
 # ------------------
-no_strings = ar.my_none? {|item| item.is_a? String}
-puts "[#{ar.join(", ")}] has no strings? #{no_strings}"
-no_strings = ar2.my_none? {|item| item.is_a? String}
-puts "[#{ar2.join(", ")}] has no strings? #{no_strings}"
+# no_strings = ar.my_none? {|item| item.is_a? String}
+# puts "[#{ar.join(", ")}] has no strings? #{no_strings}"
+# no_strings = ar2.my_none? {|item| item.is_a? String}
+# puts "[#{ar2.join(", ")}] has no strings? #{no_strings}"
+
+# my_count test
+# ------------------
+num_str = ar.my_count {|i| i.is_a? String}
+puts "[#{ar.join(", ")}] has #{num_str} strings"
+num_int = ar.my_count {|i| i.is_a? Integer}
+puts "[#{ar.join(", ")}] has #{num_int} integers"
