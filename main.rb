@@ -3,11 +3,10 @@
 module Enumerable
 
   def my_each
-    return nil unless block_given?
     if self.is_a? Hash
-      for key in self.keys()
-        yield(key, self[key])
-      end
+    for key in self.keys()
+      yield(key, self[key])
+    end
     else
       for idx in (0...self.size)
         yield(self[idx])
@@ -79,8 +78,8 @@ hsh = {"first" => 45, "2nd" => true, third: "a string"}
 
 # my_each_with_index test
 # ------------------
-ar.my_each_with_index {|item, i| puts "@#{i}: #{item}"}
-p ar.my_each_with_index
+# ar.my_each_with_index {|item, i| puts "@#{i}: #{item}"}
+# p ar.my_each_with_index
 
 # my_select test
 # ------------------
