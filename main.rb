@@ -3,8 +3,15 @@
 module Enumerable
 
   def my_each
-    for idx in (0...self.size)
-      yield(self[idx])
+    return nil unless block_given?
+    if self.is_a? Hash
+      for key in self.keys()
+        yield(key, self[key])
+      end
+    else
+      for idx in (0...self.size)
+        yield(self[idx])
+      end
     end
   end
 
@@ -61,10 +68,13 @@ end
 
 ar = ["hello", 42, "an array", :sym, true, :sym2, 3.14]
 ar2 = [1, 2, 3, 4, 5]
+hsh = {"first" => 45, "2nd" => true, third: "a string"}
 
 # my_each test
 # ------------------
-# ar.my_each {|item| puts "#{item}"}
+ar.my_each { |item| puts "A #{item}" }
+# hsh.my_each { |k, v| puts "#{k} and #{v}"}
+p hsh.my_each.nil?
 
 # my_each_with_index test
 # ------------------
@@ -106,17 +116,17 @@ ar2 = [1, 2, 3, 4, 5]
 
 # my_map test
 # ------------------
-puts "array: [#{ar2.join(", ")}]"
+# puts "array: [#{ar2.join(", ")}]"
 
 # Use Block
-ar2_squared = ar2.my_map { |i| i**2 }
-p ar2_squared
+# ar2_squared = ar2.my_map { |i| i**2 }
+# p ar2_squared
 
 
 # Use proc
-cube = Proc.new { |i| i**3 }
-ar2_cubed = ar2.my_map(&cube)
-p ar2_cubed
+# cube = Proc.new { |i| i**3 }
+# ar2_cubed = ar2.my_map(&cube)
+# p ar2_cubed
 
 # my_inject test
 # ------------------
