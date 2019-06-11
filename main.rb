@@ -50,12 +50,20 @@ module Enumerable
     end
   end
 
-  def my_count
-    return self.size unless block_given?
-
-    result = 0
-    self.my_each { |item| result += 1 if yield(item) }
-    result
+  def my_count(el = nil)
+    if !block_given?
+      if el.nil?
+        return self.size
+      else
+        result = 0
+        self.my_each { |item| result += 1 if item == el }
+        return result
+      end
+    else
+      result = 0
+      self.my_each { |item| result += 1 if yield(item) }
+      return result
+    end
   end
 
   def my_map(&proc)
@@ -136,6 +144,8 @@ end
 # num_int = ar.my_count {|i| i.is_a? Integer}
 # puts "[#{ar.join(", ")}] has #{num_int} integers"
 # puts "[#{ar.join(", ")}] has #{ar.my_count} elements"
+# ar = ['hello', 42, 'an array', 42, :sym, true, :sym2, 3.14, 42]
+# puts "[#{ar.join(", ")}] has #{ar.my_count(42)} 42s"
 
 # my_map test
 # ------------------
@@ -152,4 +162,4 @@ def multiply_els(array)
   array.my_inject { |prod, el| prod * el }
 end
 puts multiply_els([2, 4, 5])
-puts multiply_els([3, 12, -2, 5])
+# puts multiply_els([3, 12, -2, 5])
