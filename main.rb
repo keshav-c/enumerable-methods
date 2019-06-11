@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Extend the Enumerable module with a bunch of my_ methods 
+# Extend the Enumerable module with a bunch of my_ methods
 module Enumerable
   def my_each
     for idx in (0...self.size)
@@ -23,34 +23,31 @@ module Enumerable
   def my_all?
     if !block_given?
       self.my_each { |item| return false unless item }
-      result = true
+      return true
     else
       self.my_each { |item| return false unless yield(item) }
-      result = true
+      return true
     end
-    result
   end
 
   def my_any?
     if !block_given?
       self.my_each { |item| return true if item }
-      result = false
+      return false
     else
       self.my_each { |item| return true if yield(item) }
-      result = false
+      return false
     end
-    result
   end
 
   def my_none?
     if !block_given?
       self.my_each { |item| return false if item }
-      result = true
+      return true
     else
       self.my_each { |item| return false if yield(item) }
-      result = true
+      return true
     end
-    result
   end
 
   def my_count
