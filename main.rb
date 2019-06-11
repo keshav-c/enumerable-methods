@@ -23,25 +23,41 @@ module Enumerable
   def my_all?
     unless block_given?
       self.my_each { |item| return false unless item }
+      return true
+    else
+      self.my_each { |item| return false unless yield(item) }
+      return true
     end
-    self.my_each { |item| return false unless yield(item) }
-    true
   end
 
   def my_any?
-    self.my_each { |item| return true if yield(item) }
-    false
+    unless block_given?
+      self.my_each { |item| return true if item }
+      return false
+    else
+      self.my_each { |item| return true if yield(item) }
+      return false
+    end
   end
 
   def my_none?
-    self.my_each { |item| return false if yield(item) }
-    true
+    unless block_given?
+      self.my_each { |item| return false if item }
+      return true
+    else
+      self.my_each { |item| return false if yield(item) }
+      return true
+    end
   end
 
   def my_count
-    result = 0
-    self.my_each { |item| result += 1 if yield(item) }
-    result
+    unless block_given?
+      return self.size
+    else
+      result = 0
+      self.my_each { |item| result += 1 if yield(item) }
+      return result
+    end
   end
 
   def my_map(&proc)
