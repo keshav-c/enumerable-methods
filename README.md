@@ -17,11 +17,10 @@ The new methods are added onto the existing Enumerable module.
 
 ## Installation
 
-**Linux**: If Ruby is installed, simply run `ruby main.rb`. 
+1. Start the interactive ruby console, using the command `irb`
+2. Load the modified enumerable module, `load './enumerable.rb'`
+3. Create an array, and use the above custom methods.
 
-Before running:
+## Run tests
 
-- Uncomment lines 90-92, for sample input data into the various methods.
-- Each `my_` method has it's own test cases. These need to be uncommented as each method is tested
-
-Testing is done from the file itself, which seems inconvenient for now.
+From the project root directory run `rspec` or `rspec --format doc`
