@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Extend the Enumerable module with a bunch of my_ methods
 module Enumerable
     def my_each
         for idx in (0...self.size)
